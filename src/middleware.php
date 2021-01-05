@@ -65,6 +65,15 @@ $container['DashboardController'] = function($c) {
     return new App\Controllers\DashboardController($c);
 };
 
+$container['OrderController'] = function($c) {
+    return new App\Controllers\OrderController($c);
+};
+
+$container['ItemController'] = function($c) {
+    return new App\Controllers\ItemController($c);
+};
+
+/** Hosxp Controllers */
 $container['OrController'] = function($c) {
     return new App\Controllers\OrController($c);
 };

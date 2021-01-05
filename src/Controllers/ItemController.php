@@ -29,4 +29,62 @@ class ItemController extends Controller
                 ->withHeader("Content-Type", "application/json")
                 ->write($data);
     }
+
+    public function store($request, $response, $args)
+    {
+        $post = (array)$request->getParsedBody();
+
+        $item = new Item;
+        $item->name = $post['name'];
+        $item->unit = $post['unit'];
+        $item->cost = $post['cost'];
+        $item->stock = $post['stock'];
+        $item->min = $post['min'];
+        $item->balance = $post['balance'];
+        $item->item_type = $post['item_type'];
+        
+        if($item->save()) {
+            $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
+    
+            return $response->withStatus(200)
+                    ->withHeader("Content-Type", "application/json")
+                    ->write($data);
+        }
+                    
+    }
+
+    public function update($request, $response, $args)
+    {
+        $post = (array)$request->getParsedBody();
+
+        $item = Item::where('id', $args['id'])->first();
+        $item->name = $post['name'];
+        $item->unit = $post['unit'];
+        $item->cost = $post['cost'];
+        $item->stock = $post['stock'];
+        $item->min = $post['min'];
+        $item->balance = $post['balance'];
+        $item->item_type = $post['item_type'];
+        
+        if($item->save()) {
+            $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
+    
+            return $response->withStatus(200)
+                    ->withHeader("Content-Type", "application/json")
+                    ->write($data);
+        }
+    }
+
+    public function delete($request, $response, $args)
+    {
+        $item = Item::where('id', $args['id'])->first();
+        
+        if($item->delete()) {
+            $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
+    
+            return $response->withStatus(200)
+                    ->withHeader("Content-Type", "application/json")
+                    ->write($data);
+        }
+    }
 }

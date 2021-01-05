@@ -9,6 +9,9 @@ $app->get('/dashboard/or-type/{month}', 'DashboardController:orTypeMonth');
 
 $app->get('/items', 'ItemController:getAll');
 $app->get('/items/{id}', 'ItemController:getById');
+$app->post('/items', 'ItemController:store');
+$app->put('/items', 'ItemController:update');
+$app->delete('/items/{id}', 'ItemController:delete');
 
 $app->get('/orders', 'OrderController:getAll');
 $app->get('/orders/{id}', 'OrderController:getById');

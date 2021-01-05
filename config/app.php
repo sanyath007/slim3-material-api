@@ -28,5 +28,28 @@ return [
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES ' .getenv("DB_CHARSET"). ' COLLATE ' .getenv("DB_COLLATE")
             ],
         ],
+        'db_hos' => [
+            'driver'    => getenv("DB_HOS_DRIVER"),
+            'host'      => getenv("DB_HOS_HOST"),
+            'database'  => getenv("DB_HOS_NAME"),
+            'username'  => getenv("DB_HOS_USER"),
+            'password'  => getenv("DB_HOS_PASS"),
+            'port'      => getenv("DB_HOS_PORT"),
+            'charset'   => getenv("DB_HOS_CHARSET"), //utf8, tis620
+            'collation' => getenv("DB_HOS_COLLATE"), //utf8_general_ci, tis620_thai_ci
+            'prefix'    => getenv("DB_HOS_PREFIX"),
+            'options' => [
+                // Turn off persistent connections
+                PDO::ATTR_PERSISTENT => false,
+                // Enable exceptions
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                // Emulate prepared statements
+                PDO::ATTR_EMULATE_PREPARES => true,
+                // Set default fetch mode to array
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                // Set character set
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES ' .getenv("DB_CHARSET"). ' COLLATE ' .getenv("DB_COLLATE")
+            ],
+        ],
     ]
 ];

@@ -6,22 +6,12 @@ $container = $app->getContainer();
 
 $capsule = new Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($container['settings']['db']);
+$capsule->addConnection($container['settings']['db_hos'], 'hos');
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 $container['db'] = function($c) use ($capsule) {
     return $capsule;
-};
-
-$container['pdo'] = function ($c) {
-    try {
-        $conStr = $c['settings']['db'];
-
-        return new PDO($conStr['driver']. ":host=" .$conStr['host']. ";dbname=" .$conStr['database'], $conStr['username'], $conStr['password'], $conStr['options']);
-    }
-    catch(\Exception $ex) {
-        return $ex->getMessage();
-    }   
 };
 
 $container['auth'] = function($c) {

@@ -10,8 +10,8 @@ class ItemController extends Controller
 {
     public function getAll($request, $response, $args)
     {
-        $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
         $page = (int)$request->getQueryParam('page');
+        $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
         
         $count = Item::count();
         
@@ -23,7 +23,11 @@ class ItemController extends Controller
         $next = ($page != $lastPage) ? $page + 1 : null;
         $lastRecordPerPage = ($page != $lastPage) ? ($page * $perPage) : ($count - $offset) + $offset;
 
-        $items = Item::skip($offset)->take($perPage)->orderBy('id')->get();
+        $items = Item::with('itemType')
+                    ->skip($offset)
+                    ->take($perPage)
+                    ->orderBy('id')
+                    ->get();
 
         $data = [
             'items' => $items,

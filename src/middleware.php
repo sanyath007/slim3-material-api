@@ -73,6 +73,10 @@ $container['ItemController'] = function($c) {
     return new App\Controllers\ItemController($c);
 };
 
+$container['ItemTypeController'] = function($c) {
+    return new App\Controllers\ItemTypeController($c);
+};
+
 /** Hosxp Controllers */
 $container['OrController'] = function($c) {
     return new App\Controllers\OrController($c);

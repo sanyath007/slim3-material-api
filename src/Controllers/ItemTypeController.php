@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use Illuminate\Database\Capsule\Manager as DB;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\ItemType;
 
 class ItemTypeController extends Controller

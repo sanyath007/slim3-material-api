@@ -10,13 +10,43 @@ class ItemController extends Controller
 {
     public function getAll($request, $response, $args)
     {
-        $items = Item::all();
+        $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
+        $page = (int)$request->getQueryParam('page');
         
-        $data = json_encode($items, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
+        $count = Item::count();
+        
+        $perPage = 10;
+        $page = ($page == 0 ? 1 : $page);
+        $offset = ($page - 1) * $perPage;
+        $lastPage = ceil($count / $perPage);
+        $prev = ($page != $offset + 1) ? $page - 1 : null;
+        $next = ($page != $lastPage) ? $page + 1 : null;
+        $lastRecordPerPage = ($page != $lastPage) ? ($page * $perPage) : ($count - $offset) + $offset;
+
+        $items = Item::skip($offset)->take($perPage)->orderBy('id')->get();
+
+        $data = [
+            'items' => $items,
+            'pager' => [
+                'total' => $count,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => $lastPage,
+                'from' => $offset + 1,
+                'to' => $lastRecordPerPage,
+                'path'  => $link,
+                'first_page_url' => $link. '?page=1',
+                'prev_page_url' => (!$prev) ? $prev : $link. '?page=' .$prev,
+                'next_page_url' => (!$next) ? $next : $link. '?page=' .$next,
+                'last_page_url' => $link. '?page=' .$lastPage
+            ]
+        ];
 
         return $response->withStatus(200)
                 ->withHeader("Content-Type", "application/json")
-                ->write($data);
+                ->write(
+                    json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE)
+                );
     }
     
     public function getById($request, $response, $args)
@@ -49,8 +79,7 @@ class ItemController extends Controller
             return $response->withStatus(200)
                     ->withHeader("Content-Type", "application/json")
                     ->write($data);
-        }
-                    
+        }                    
     }
 
     public function update($request, $response, $args)

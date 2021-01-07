@@ -2,7 +2,7 @@
 
 function paginate($model, $recordPerPage, $currenPage, $link)
 {        
-    $count = $model::count();
+    $count = $model->count();
     
     $perPage = $recordPerPage;
     $page = ($currenPage == 0 ? 1 : $currenPage);
@@ -12,8 +12,7 @@ function paginate($model, $recordPerPage, $currenPage, $link)
     $next = ($page != $lastPage) ? $page + 1 : null;
     $lastRecordPerPage = ($page != $lastPage) ? ($page * $perPage) : ($count - $offset) + $offset;
 
-    $items = $model::with('itemType')
-                ->skip($offset)
+    $items = $model->skip($offset)
                 ->take($perPage)
                 ->orderBy('id')
                 ->get();

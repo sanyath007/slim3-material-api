@@ -12,7 +12,7 @@ class ItemController extends Controller
     {
         $page = (int)$request->getQueryParam('page');
         $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
-        $data = paginate(Item::class, 10, $page, $link);
+        $data = paginate(Item::with('itemType'), 10, $page, $link);
 
         return $response->withStatus(200)
                 ->withHeader("Content-Type", "application/json")

@@ -40,6 +40,15 @@ $app->delete('/units/{id}', 'UnitController:delete');
 $app->get('/orders', 'OrderController:getAll');
 $app->get('/orders/{id}', 'OrderController:getById');
 
+/** Routes to person db */
+$app->get('/depts', 'UnitController:getAll');
+$app->get('/depts/{id}', 'UnitController:getById');
+
+$app->get('/persons', 'UnitController:getAll');
+$app->get('/persons/{id}', 'UnitController:getById');
+
+/** Routes to hosxp db */
+
 $app->group('/api', function(Slim\App $app) { 
     $app->get('/users', 'UserController:index');
     $app->get('/users/{loginname}', 'UserController:getUser');

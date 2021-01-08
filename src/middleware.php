@@ -7,6 +7,7 @@ $container = $app->getContainer();
 $capsule = new Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($container['settings']['db']);
 $capsule->addConnection($container['settings']['db_hos'], 'hos');
+$capsule->addConnection($container['settings']['db_person'], 'person');
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 

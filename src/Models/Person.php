@@ -8,4 +8,9 @@ class Person extends Model
 {
     protected $connection = "person";
     protected $table = "personal";
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'person_id', 'order_by');
+    }
 }

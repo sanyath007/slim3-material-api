@@ -13,7 +13,7 @@ class OrderController extends Controller
     {
         $page = (int)$request->getQueryParam('page');
         $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
-        $orders = paginate(Order::with('orderItem'), 10, $page, $link);
+        $orders = paginate(Order::with('orderItem', 'dept'), 10, $page, $link);
         
         $data = json_encode($orders, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
 

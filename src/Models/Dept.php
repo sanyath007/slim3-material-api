@@ -8,4 +8,9 @@ class Dept extends Model
 {
     protected $connection = "person";
     protected $table = "depart";
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'depart_id', 'order_dept');
+    }
 }

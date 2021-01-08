@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     protected $table = "order_items";
+    // public $incrementing = false; //ไม่ใช้ options auto increment
+    public $timestamps = false; //ไม่ใช้ field updated_at และ created_at
 
     public function order()
     {

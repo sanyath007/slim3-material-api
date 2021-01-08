@@ -4,6 +4,15 @@ use Tuupola\Middleware\HttpBasicAuthentication;
 
 $container = $app->getContainer();
 
+$container['errorHandler'] = function ($c) {
+    return function ($request, $response, $exception) use ($c) {
+        return $response
+                ->withStatus(500)
+                ->withHeader("Content-Type", "application/json")
+                ->write('Something went wrong!');
+    };
+};
+
 $capsule = new Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($container['settings']['db']);
 $capsule->addConnection($container['settings']['db_hos'], 'hos');

@@ -39,6 +39,9 @@ $app->delete('/units/{id}', 'UnitController:delete');
 
 $app->get('/orders', 'OrderController:getAll');
 $app->get('/orders/{id}', 'OrderController:getById');
+$app->post('/orders', 'OrderController:store');
+$app->put('/orders', 'OrderController:update');
+$app->delete('/orders/{id}', 'OrderController:delete');
 
 /** Routes to person db */
 $app->get('/depts', 'DeptController:getAll');

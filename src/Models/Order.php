@@ -18,7 +18,7 @@ class Order extends Model
         return $this->belongsTo(Dept::class, 'order_dept', 'depart_id');
     }
     
-    public function orderBy()
+    public function orderUser()
     {
         return $this->belongsTo(Person::class, 'order_by', 'person_id');
     }

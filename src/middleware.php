@@ -9,7 +9,7 @@ $container['errorHandler'] = function ($c) {
         return $response
                 ->withStatus(500)
                 ->withHeader("Content-Type", "application/json")
-                ->write('Something went wrong!');
+                ->write($exception->getMessage());
     };
 };
 

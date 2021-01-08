@@ -39,6 +39,7 @@ $app->delete('/units/{id}', 'UnitController:delete');
 
 $app->get('/orders', 'OrderController:getAll');
 $app->get('/orders/{id}', 'OrderController:getById');
+$app->get('/orders/last/order-no', 'OrderController:generateOrderNo');
 $app->post('/orders', 'OrderController:store');
 $app->put('/orders', 'OrderController:update');
 $app->delete('/orders/{id}', 'OrderController:delete');

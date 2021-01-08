@@ -9,6 +9,20 @@ use App\Models\OrderItem;
 
 class OrderController extends Controller
 {
+    public function generateOrderNo($request, $response, $args)
+    {
+        $order = Order::orderBy('order_no', 'DESC')->first();
+
+        $startId = substr((date('Y') + 543), 2);
+        $tmpLastId =  ((int)(substr($order->order_no, 4))) + 1;
+        $lastId = $startId.sprintf("%'.05d", $tmpLastId);
+
+        return $response
+                ->withStatus(200)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($lastId, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
+    }
+
     public function getAll($request, $response, $args)
     {
         $page = (int)$request->getQueryParam('page');
@@ -17,7 +31,8 @@ class OrderController extends Controller
         
         $data = json_encode($orders, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
 
-        return $response->withStatus(200)
+        return $response
+                ->withStatus(200)
                 ->withHeader("Content-Type", "application/json")
                 ->write($data);
     }
@@ -26,7 +41,8 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $args['id'])->first();
 
-        return $response->withStatus(200)
+        return $response
+                ->withStatus(200)
                 ->withHeader("Content-Type", "application/json")
                 ->write(json_encode($order, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
     }

@@ -82,6 +82,15 @@ $container['UnitController'] = function($c) {
     return new App\Controllers\UnitController($c);
 };
 
+/** Person Controllers */
+$container['PersonController'] = function($c) {
+    return new App\Controllers\PersonController($c);
+};
+
+$container['DeptController'] = function($c) {
+    return new App\Controllers\DeptController($c);
+};
+
 /** Hosxp Controllers */
 $container['OrController'] = function($c) {
     return new App\Controllers\OrController($c);

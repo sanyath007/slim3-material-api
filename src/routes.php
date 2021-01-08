@@ -41,11 +41,11 @@ $app->get('/orders', 'OrderController:getAll');
 $app->get('/orders/{id}', 'OrderController:getById');
 
 /** Routes to person db */
-$app->get('/depts', 'UnitController:getAll');
-$app->get('/depts/{id}', 'UnitController:getById');
+$app->get('/depts', 'DeptController:getAll');
+$app->get('/depts/{id}', 'DeptController:getById');
 
-$app->get('/persons', 'UnitController:getAll');
-$app->get('/persons/{id}', 'UnitController:getById');
+$app->get('/persons', 'PersonController:getAll');
+$app->get('/persons/{id}', 'PersonController:getById');
 
 /** Routes to hosxp db */
 

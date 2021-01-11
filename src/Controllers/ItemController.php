@@ -11,8 +11,15 @@ class ItemController extends Controller
     public function getAll($request, $response, $args)
     {
         $page = (int)$request->getQueryParam('page');
-        $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
-        $data = paginate(Item::with('itemType'), 10, $page, $link);
+
+        if ($page) {
+            $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
+            $data = paginate(Item::with('itemType'), 10, $page, $link);
+        } else {
+            $data = [
+                'items' => Item::with('itemType')->get()
+            ];
+        }
 
         return $response->withStatus(200)
                 ->withHeader("Content-Type", "application/json")

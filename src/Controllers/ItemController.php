@@ -14,10 +14,10 @@ class ItemController extends Controller
 
         if ($page) {
             $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
-            $data = paginate(Item::with('itemType', 'itemGroup'), 10, $page, $link);
+            $data = paginate(Item::with('itemType', 'itemGroup')->orderBy('item_group'), 10, $page, $link);
         } else {
             $data = [
-                'items' => Item::with('itemType', 'itemGroup')->get()
+                'items' => Item::with('itemType', 'itemGroup')->orderBy('item_group')->get()
             ];
         }
 
@@ -49,6 +49,7 @@ class ItemController extends Controller
         $item->min = $post['min'];
         $item->balance = $post['balance'];
         $item->item_type = $post['item_type'];
+        $item->item_group = $post['item_group'];
         
         if($item->save()) {
             $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
@@ -70,7 +71,8 @@ class ItemController extends Controller
         $item->stock = $post['stock'];
         $item->min = $post['min'];
         $item->balance = $post['balance'];
-        $item->item_type = $post['item_type'];
+        $item->item_type = $post['item_type'];        
+        $item->item_group = $post['item_group'];
         
         if($item->save()) {
             $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);

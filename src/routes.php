@@ -31,6 +31,12 @@ $app->post('/item-types', 'ItemTypeController:store');
 $app->put('/item-types', 'ItemTypeController:update');
 $app->delete('/item-types/{id}', 'ItemTypeController:delete');
 
+$app->get('/item-groups', 'ItemGroupController:getAll');
+$app->get('/item-groups/{id}', 'ItemGroupController:getById');
+$app->post('/item-groups', 'ItemGroupController:store');
+$app->put('/item-groups', 'ItemGroupController:update');
+$app->delete('/item-groups/{id}', 'ItemGroupController:delete');
+
 $app->get('/units', 'UnitController:getAll');
 $app->get('/units/{id}', 'UnitController:getById');
 $app->post('/units', 'UnitController:store');

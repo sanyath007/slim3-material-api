@@ -87,6 +87,10 @@ $container['ItemTypeController'] = function($c) {
     return new App\Controllers\ItemTypeController($c);
 };
 
+$container['ItemGroupController'] = function($c) {
+    return new App\Controllers\ItemGroupController($c);
+};
+
 $container['UnitController'] = function($c) {
     return new App\Controllers\UnitController($c);
 };

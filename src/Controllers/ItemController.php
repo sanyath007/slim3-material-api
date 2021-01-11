@@ -14,10 +14,10 @@ class ItemController extends Controller
 
         if ($page) {
             $link = 'http://localhost'. $request->getServerParam('REDIRECT_URL');
-            $data = paginate(Item::with('itemType'), 10, $page, $link);
+            $data = paginate(Item::with('itemType', 'itemGroup'), 10, $page, $link);
         } else {
             $data = [
-                'items' => Item::with('itemType')->get()
+                'items' => Item::with('itemType', 'itemGroup')->get()
             ];
         }
 

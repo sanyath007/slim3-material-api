@@ -22,32 +22,32 @@ $app->get('/dashboard/or-type/{month}', 'DashboardController:orTypeMonth');
 $app->get('/items', 'ItemController:getAll');
 $app->get('/items/{id}', 'ItemController:getById');
 $app->post('/items', 'ItemController:store');
-$app->put('/items', 'ItemController:update');
+$app->put('/items/{id}', 'ItemController:update');
 $app->delete('/items/{id}', 'ItemController:delete');
 
 $app->get('/item-types', 'ItemTypeController:getAll');
 $app->get('/item-types/{id}', 'ItemTypeController:getById');
 $app->post('/item-types', 'ItemTypeController:store');
-$app->put('/item-types', 'ItemTypeController:update');
+$app->put('/item-types/{id}', 'ItemTypeController:update');
 $app->delete('/item-types/{id}', 'ItemTypeController:delete');
 
 $app->get('/item-groups', 'ItemGroupController:getAll');
 $app->get('/item-groups/{id}', 'ItemGroupController:getById');
 $app->post('/item-groups', 'ItemGroupController:store');
-$app->put('/item-groups', 'ItemGroupController:update');
+$app->put('/item-groups/{id}', 'ItemGroupController:update');
 $app->delete('/item-groups/{id}', 'ItemGroupController:delete');
 
 $app->get('/units', 'UnitController:getAll');
 $app->get('/units/{id}', 'UnitController:getById');
 $app->post('/units', 'UnitController:store');
-$app->put('/units', 'UnitController:update');
+$app->put('/units/{id}', 'UnitController:update');
 $app->delete('/units/{id}', 'UnitController:delete');
 
 $app->get('/orders', 'OrderController:getAll');
 $app->get('/orders/{id}', 'OrderController:getById');
 $app->get('/orders/last/order-no', 'OrderController:generateOrderNo');
 $app->post('/orders', 'OrderController:store');
-$app->put('/orders', 'OrderController:update');
+$app->put('/orders/{id}', 'OrderController:update');
 $app->delete('/orders/{id}', 'OrderController:delete');
 
 /** Routes to person db */

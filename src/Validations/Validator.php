@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validation;
+namespace App\Validations;
 
 use Respect\Validation\Validator as Respect;
 use Respect\Validation\Exceptions\NestedValidationException;
@@ -19,13 +19,16 @@ class Validator
             }
         }
 
-        $_SESSION['errors'] = $this->errors;
-
         return $this;
     }
 
     public function failed()
     {
         return !empty($this->errors);
+    }
+
+    public function getMessages()
+    {
+        return $this->errors;
     }
 }

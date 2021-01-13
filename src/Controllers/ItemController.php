@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use Illuminate\Database\Capsule\Manager as DB;
+use Respect\Validation\Validator as v;
 use App\Models\Item;
 
 class ItemController extends Controller
@@ -39,6 +40,29 @@ class ItemController extends Controller
 
     public function store($request, $response, $args)
     {
+        $validation = $this->validator->validate($request, [
+            'name' => v::notEmpty(),
+            'unit' => v::notEmpty()->numeric(),
+            'cost' => v::notOptional()->floatVal(),
+            'stock' => v::notOptional()->numeric(),
+            'min' => v::notOptional()->numeric(),
+            'balance' => v::notOptional()->numeric(),
+            'item_type' => v::notEmpty()->numeric(),
+            'item_group' => v::notEmpty()->numeric(),
+        ]);
+        
+        if ($validation->failed()) {
+            $data = [
+                'status' => 0,
+                'errors' => $validation->getMessages(),
+                'message' => 'Validation Error!!'
+            ];
+
+            return $response->withStatus(200)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
+        }
+
         $post = (array)$request->getParsedBody();
 
         $item = new Item;
@@ -52,11 +76,9 @@ class ItemController extends Controller
         $item->item_group = $post['item_group'];
         
         if($item->save()) {
-            $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
-    
             return $response->withStatus(200)
                     ->withHeader("Content-Type", "application/json")
-                    ->write($data);
+                    ->write(json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
         }                    
     }
 
@@ -74,12 +96,10 @@ class ItemController extends Controller
         $item->item_type = $post['item_type'];        
         $item->item_group = $post['item_group'];
         
-        if($item->save()) {
-            $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
-    
+        if($item->save()) {    
             return $response->withStatus(200)
                     ->withHeader("Content-Type", "application/json")
-                    ->write($data);
+                    ->write(json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
         }
     }
 
@@ -88,11 +108,9 @@ class ItemController extends Controller
         $item = Item::where('id', $args['id'])->first();
         
         if($item->delete()) {
-            $data = json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE);
-    
             return $response->withStatus(200)
                     ->withHeader("Content-Type", "application/json")
-                    ->write($data);
+                    ->write(json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
         }
     }
 }

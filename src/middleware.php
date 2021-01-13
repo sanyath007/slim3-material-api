@@ -36,6 +36,10 @@ $container['logger'] = function($c) {
     return $logger;
 };
 
+$container['validator'] = function($c) {
+    return new App\Validations\Validator;
+};
+
 $container['jwt'] = function($c) {
     return new StdClass;
 };

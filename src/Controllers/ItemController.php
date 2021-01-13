@@ -76,14 +76,43 @@ class ItemController extends Controller
         $item->item_group = $post['item_group'];
         
         if($item->save()) {
+            $data = [
+                'status' => 1,
+                'message' => 'Insertion successfully!!',
+                'item' => $item
+            ];
+
             return $response->withStatus(200)
                     ->withHeader("Content-Type", "application/json")
-                    ->write(json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
+                    ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
         }                    
     }
 
     public function update($request, $response, $args)
     {
+        $validation = $this->validator->validate($request, [
+            'name' => v::notEmpty(),
+            'unit' => v::notEmpty()->numeric(),
+            'cost' => v::notOptional()->floatVal(),
+            'stock' => v::notOptional()->numeric(),
+            'min' => v::notOptional()->numeric(),
+            'balance' => v::notOptional()->numeric(),
+            'item_type' => v::notEmpty()->numeric(),
+            'item_group' => v::notEmpty()->numeric(),
+        ]);
+        
+        if ($validation->failed()) {
+            $data = [
+                'status' => 0,
+                'errors' => $validation->getMessages(),
+                'message' => 'Validation Error!!'
+            ];
+
+            return $response->withStatus(200)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
+        }
+
         $post = (array)$request->getParsedBody();
 
         $item = Item::where('id', $args['id'])->first();
@@ -96,10 +125,16 @@ class ItemController extends Controller
         $item->item_type = $post['item_type'];        
         $item->item_group = $post['item_group'];
         
-        if($item->save()) {    
+        if($item->save()) {   
+            $data = [
+                'status' => 1,
+                'message' => 'Update successfully!!',
+                'item' => $item
+            ];
+ 
             return $response->withStatus(200)
                     ->withHeader("Content-Type", "application/json")
-                    ->write(json_encode($item, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
+                    ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT |  JSON_UNESCAPED_UNICODE));
         }
     }
 
